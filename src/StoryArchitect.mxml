@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" initialize="windowedapplication_initializeHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			private var xml:XML = 
+				<root>
+					<Milieu uid="test" />
+					<Milieu uid="tes-12-1"/>
+				</root>
+			
+			protected function windowedapplication_initializeHandler(event:FlexEvent):void
+			{
+				ApplicationFacade.getInstance().startup(this);
+				trace(xml.Milieu[0].toXMLString());
+				trace(xml.child("Milieu")[0].toXMLString());
+			}
+			
+		]]>
+	</fx:Script>
+</s:WindowedApplication>
