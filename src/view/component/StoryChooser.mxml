@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="390" minHeight="290">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import view.event.AppEvent;
+			
+			[Bindable] public var storyList:ArrayCollection;
+			
+			private function sendEvent( type:String, data:Object = null ):void
+			{
+				this.dispatchEvent( new AppEvent( type, data ) );
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<!-- chooser header -->
+	<s:HGroup fontSize="24" verticalAlign="middle" width="100%" height="50">
+		
+		<!-- Title -->
+		<s:Label text="Story" width="100%"/>
+		
+		<!-- Add button -->
+		<s:Button label="+" width="50" height="100%"
+				  click="sendEvent( AppEvent.ADD_STORY )"/>
+		
+	</s:HGroup>
+	
+	<s:List labelField="name" id="lstStories" dataProvider="{storyList}" fontSize="16"
+			width="100%" height="100%"/>
+	
+	<s:HGroup fontSize="16" verticalAlign="middle"
+			  visible="{lstStories.selectedItem != null}"
+			  includeInLayout="{lstStories.selectedItem != null}"
+			  width="100%" height="100">
+		
+		<s:VGroup height="100%" width="25%">
+			<s:Button label="Cast" height="50%" width="100%"/>
+			<s:Button label="Milieu" height="50%" width="100%"/>
+		</s:VGroup>
+		
+		<s:VGroup height="100%" width="25%">
+			<s:Button label="Notes" height="50%" width="100%"/>
+			<s:Button label="Outline" height="50%" width="100%"/>
+		</s:VGroup>
+		
+		<s:VGroup height="100%" width="25%">
+			<s:Button label="Notes" height="50%" width="100%"/>
+			<s:Button label="Outline" height="50%" width="100%"/>
+		</s:VGroup>
+		
+		<s:VGroup height="100%" width="25%">
+			<s:Button label="Manage" height="50%" width="100%"
+					  click="sendEvent( AppEvent.MANAGE_STORY, lstStories.selectedItem )" />
+			
+			<s:Button label="Export" height="50%" width="100%"/>
+		</s:VGroup>
+		
+		<s:Button label="Write" fontSize="24"
+				  click="sendEvent( AppEvent.EDIT_STORY, lstStories.selectedItem )"
+				  height="100%" width="25%"/>
+	</s:HGroup>
+</s:VGroup>
